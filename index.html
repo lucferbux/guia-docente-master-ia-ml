@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía Docente - Master IA & ML</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f3f4f6; }
+        .modal { transition: opacity 0.25s ease; }
+        body.modal-active { overflow: hidden; }
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <!-- Header -->
+    <header class="bg-white shadow-sm sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="bg-indigo-600 text-white p-2 rounded-lg">
+                    <i class="fa-solid fa-brain"></i>
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold text-gray-900 leading-none">Master in Machine Learning & AI</h1>
+                    <p class="text-xs text-gray-500 font-medium mt-1">OBS Business School | Guía de Asignaturas</p>
+                </div>
+            </div>
+            <div class="text-sm text-gray-500 hidden md:block">
+                <i class="fa-regular fa-user-circle mr-1"></i> Lucas Fernández Aragón
+            </div>
+        </div>
+    </header>
+
+    <!-- Intro -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <div class="text-center max-w-3xl mx-auto mb-12">
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">Elige tu Asignatura</h2>
+            <p class="text-gray-600 text-lg">
+                He preparado este resumen interactivo para que veáis rápidamente el encaje de cada módulo. 
+                Haced clic en <span class="font-semibold text-indigo-600">"Ver Ficha"</span> para ver el detalle académico completo.
+            </p>
+        </div>
+
+        <!-- Grid de Asignaturas -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="cards-container">
+            <!-- Las tarjetas se generan con JS abajo -->
+        </div>
+    </div>
+
+    <!-- Modal (Hidden by default) -->
+    <div id="modal" class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center z-50">
+        <div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"></div>
+        
+        <div class="modal-container bg-white w-11/12 md:max-w-2xl mx-auto rounded-xl shadow-2xl z-50 overflow-y-auto max-h-[90vh] transform transition-all scale-95 duration-300" id="modal-content-wrapper">
+            
+            <!-- Header Modal -->
+            <div class="bg-indigo-600 px-6 py-4 flex justify-between items-center sticky top-0 z-10">
+                <h3 id="modal-title" class="text-xl font-bold text-white">Titulo Asignatura</h3>
+                <div class="modal-close cursor-pointer z-50 text-white hover:text-gray-200 transition">
+                    <i class="fa-solid fa-xmark text-2xl"></i>
+                </div>
+            </div>
+
+            <!-- Body Modal -->
+            <div class="px-6 py-6">
+                <!-- Etiquetas -->
+                <div class="flex gap-2 mb-6" id="modal-tags">
+                    <!-- Tags generados por JS -->
+                </div>
+
+                <div class="mb-6">
+                    <h4 class="text-sm font-bold text-gray-400 uppercase tracking-wide mb-2">Descripción Detallada</h4>
+                    <p id="modal-desc" class="text-gray-700 leading-relaxed"></p>
+                </div>
+
+                <div class="bg-indigo-50 rounded-lg p-5 border border-indigo-100">
+                    <h4 class="text-sm font-bold text-indigo-800 uppercase tracking-wide mb-3">Objetivos Específicos</h4>
+                    <ul id="modal-objectives" class="space-y-2">
+                        <!-- Lista generada por JS -->
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Footer Modal -->
+            <div class="bg-gray-50 px-6 py-4 flex justify-end">
+                <button class="modal-close bg-white border border-gray-300 text-gray-700 hover:bg-gray-100 px-4 py-2 rounded-lg text-sm font-medium transition">
+                    Cerrar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- DATA & LOGIC -->
+    <script>
+        // Datos extraídos de la Guía del Programa
+        const subjects = [
+            {
+                id: 1,
+                title: "Python for AI",
+                short: "Fundamentos de programación moderna (Python 3.11+), consumo de APIs y prototipado rápido.",
+                icon: "fa-brands fa-python",
+                color: "text-yellow-600",
+                bg: "bg-yellow-50",
+                desc: "Este curso fundamental dota a los estudiantes de las habilidades de programación en Python esenciales para el desarrollo moderno de IA. Más que enseñar programación de forma aislada, cada concepto se aplica inmediatamente a casos de uso de IA, desde la manipulación de datos hasta el consumo de APIs de LLM. Los estudiantes construirán prototipos funcionales al final del módulo.",
+                objectives: [
+                    "Dominar la sintaxis moderna de Python (3.11+), tipado y entornos virtuales.",
+                    "Manipulación de datos con Pandas y Polars para alto rendimiento.",
+                    "Consumo de APIs de IA: OpenAI, Anthropic, Gemini y modelos open-source.",
+                    "Creación de aplicaciones interactivas con Streamlit y Gradio.",
+                    "Uso del ecosistema esencial: NumPy, Scikit-learn, HuggingFace y LangChain."
+                ]
+            },
+            {
+                id: 2,
+                title: "Intuitive Mathematics for AI",
+                short: "Álgebra lineal visual, probabilidad y optimización sin teoría abstracta. Entender el 'porqué'.",
+                icon: "fa-solid fa-square-root-variable",
+                color: "text-purple-600",
+                bg: "bg-purple-50",
+                desc: "Este curso desmitifica los conceptos matemáticos que sustentan los sistemas de IA, centrándose en la intuición y la aplicación práctica en lugar de la teoría abstracta. Los estudiantes entenderán por qué los embeddings capturan significado, cómo aprenden los modelos a través de la optimización y qué nos dice la probabilidad sobre la confianza de la predicción.",
+                objectives: [
+                    "Desarrollar una comprensión intuitiva de los fundamentos matemáticos.",
+                    "Álgebra lineal visual: vectores, matrices y la geometría de los embeddings.",
+                    "Probabilidad y estadística: distribuciones e intervalos de confianza.",
+                    "Cálculo intuitivo: gradientes, funciones de pérdida y backpropagation.",
+                    "Reducción de dimensionalidad: PCA, t-SNE y UMAP para visualización."
+                ]
+            },
+            {
+                id: 3,
+                title: "The Data Ecosystem and Modern AI",
+                short: "Stack moderno de datos: Vector DBs, pipelines ETL/ELT y gobernanza para la era GenAI.",
+                icon: "fa-solid fa-database",
+                color: "text-green-600",
+                bg: "bg-green-50",
+                desc: "Los datos son la base de todo sistema de IA, pero el panorama ha evolucionado con la IA generativa. Este curso cubre el stack de datos moderno, desde bases de datos tradicionales hasta vectoriales, preparando a los estudiantes para arquitecturas de datos que alimentan aplicaciones contemporáneas.",
+                objectives: [
+                    "Comprender el ciclo de vida moderno del dato: ingesta, transformación y serving.",
+                    "Bases de datos tradicionales vs. Vectoriales (Pinecone, Weaviate, Chroma).",
+                    "Ingeniería de datos: pipelines ETL/ELT y frameworks de calidad.",
+                    "El rol de los datos en Foundation Models y fine-tuning.",
+                    "Gobernanza de datos y cumplimiento (GDPR, AI Act)."
+                ]
+            },
+            {
+                id: 4,
+                title: "Applied Predictive Machine Learning",
+                short: "Resolución de problemas de negocio (clasificación/regresión) con herramientas de alto nivel y AutoML.",
+                icon: "fa-solid fa-chart-line",
+                color: "text-blue-600",
+                bg: "bg-blue-50",
+                desc: "Este curso cubre la aplicación práctica del Machine Learning tradicional a problemas de negocio. Los estudiantes aprenden a plantear preguntas de negocio como tareas de ML, seleccionar algoritmos y construir pipelines robustos, enfocándose en el uso efectivo de herramientas de alto nivel y plataformas de AutoML.",
+                objectives: [
+                    "Aplicar técnicas de ML predictivo para resolver problemas de negocio.",
+                    "Dominar algoritmos de clasificación (XGBoost) y regresión.",
+                    "Uso práctico de Scikit-learn: pipelines y validación cruzada.",
+                    "Plataformas de AutoML en práctica: Vertex AI, Azure Automated ML.",
+                    "Evaluación de modelos alineada con métricas de negocio."
+                ]
+            },
+            {
+                id: 5,
+                title: "Fundamentals of Deep Learning",
+                short: "PyTorch, CNNs y la revolución de los Transformers. Transfer Learning sobre entrenamiento desde cero.",
+                icon: "fa-solid fa-network-wired",
+                color: "text-orange-600",
+                bg: "bg-orange-50",
+                desc: "El Deep Learning impulsa los sistemas de IA más impresionantes de hoy. Este curso construye la intuición sobre cómo aprenden las redes neuronales, cubre arquitecturas clave y enseña cuándo entrenar desde cero frente a aprovechar modelos pre-entrenados.",
+                objectives: [
+                    "Fundamentos de redes neuronales y frameworks (PyTorch).",
+                    "Redes Convolucionales (CNNs) para visión por computador.",
+                    "La revolución Transformer: mecanismos de atención.",
+                    "Transfer Learning y fine-tuning de modelos pre-entrenados.",
+                    "Entender qué son los Foundation Models y cómo se entrenan."
+                ]
+            },
+            {
+                id: 6,
+                title: "MLOps and LLMOps",
+                short: "Despliegue a producción, Docker, MLflow y gestión específica de LLMs (costes/latencia).",
+                icon: "fa-solid fa-server",
+                color: "text-slate-600",
+                bg: "bg-slate-100",
+                desc: "Construir un modelo es solo el principio. Este curso cubre el ciclo de vida completo del despliegue de IA, con especial atención a los desafíos únicos de los sistemas basados en LLMs: gestión de versiones de prompts, optimización de costes y guardrails de seguridad.",
+                objectives: [
+                    "Actualizar el enfoque MLOps para incluir particularidades de LLMs.",
+                    "Containerización (Docker) y orquestación.",
+                    "Plataformas MLOps: MLflow para tracking y registro.",
+                    "Específicos de LLMOps: gestión de prompts y optimización de costes.",
+                    "Observabilidad y monitoreo en producción."
+                ]
+            },
+            {
+                id: 7,
+                title: "NLP in the Age of Transformers",
+                short: "Prompt Engineering avanzado, Fine-tuning (LoRA) y dominio del ecosistema HuggingFace.",
+                icon: "fa-solid fa-comments",
+                color: "text-indigo-600",
+                bg: "bg-indigo-50",
+                desc: "El PLN ha sido revolucionado por los Transformers. Este curso se centra en el NLP moderno: entender cómo funcionan los LLMs, dominar el Prompt Engineering como habilidad clave y aprender cuándo y cómo hacer fine-tuning para dominios específicos.",
+                objectives: [
+                    "Aplicar técnicas modernas de NLP centradas en Transformers.",
+                    "Maestría en Prompt Engineering (Zero-shot, CoT).",
+                    "Estrategias de Fine-tuning: LoRA, QLoRA.",
+                    "Ecosistema HuggingFace: Librerías y Model Hub.",
+                    "Embeddings de texto y búsqueda semántica."
+                ]
+            },
+            {
+                id: 8,
+                title: "Multimodal AI Solutions",
+                short: "Integración de texto, visión y audio. Modelos Vision-Language y generación de contenido.",
+                icon: "fa-solid fa-photo-film",
+                color: "text-pink-600",
+                bg: "bg-pink-50",
+                desc: "La próxima frontera de la IA va más allá de modalidades únicas. Este curso cubre el paisaje de la IA multimodal, con experiencia práctica construyendo sistemas que integran visión, audio y lenguaje simultáneamente.",
+                objectives: [
+                    "Diseñar e implementar soluciones de IA multimodal.",
+                    "Vision-Language Models: CLIP, LLaVA, GPT-4 Vision.",
+                    "Generación de imagen (Stable Diffusion) y audio (Whisper).",
+                    "Document AI y extracción de datos estructurados.",
+                    "Consideraciones éticas en IA multimodal (deepfakes)."
+                ]
+            },
+            {
+                id: 9,
+                title: "Strategy & Applications of GenAI",
+                short: "Arquitecturas RAG avanzadas, Agentes Autónomos y estrategia de implementación.",
+                icon: "fa-solid fa-robot",
+                color: "text-teal-600",
+                bg: "bg-teal-50",
+                desc: "Este curso va más allá de la implementación técnica para cubrir el pensamiento estratégico: identificación de casos de uso, decisiones build vs. buy y arquitecturas avanzadas como Agentes y sistemas RAG.",
+                objectives: [
+                    "Formular casos de uso de negocio y estrategias para GenAI.",
+                    "Fundamentos de IA Agéntica (LangChain, LangGraph).",
+                    "RAG (Retrieval-Augmented Generation) avanzado.",
+                    "Análisis Build vs. Buy y evaluación de proveedores.",
+                    "Gestión de riesgos: alucinaciones y seguridad."
+                ]
+            },
+            {
+                id: 10,
+                title: "Designing Products with AI",
+                short: "Design Thinking aplicado, definición de MVPs y creación de valor de negocio real.",
+                icon: "fa-solid fa-lightbulb",
+                color: "text-yellow-500",
+                bg: "bg-yellow-50",
+                desc: "El módulo capstone que une el conocimiento técnico con el pensamiento de producto. Cómo identificar oportunidades, diseñar experiencias de usuario adecuadas, medir el éxito y construir casos de negocio convincentes.",
+                objectives: [
+                    "Adquirir metodología para diseñar productos innovadores.",
+                    "Design Thinking adaptado a las capacidades de la IA.",
+                    "Identificación de oportunidades y definición de MVPs.",
+                    "Métricas de éxito y experimentación (A/B testing).",
+                    "Creación de Business Case y cálculo de ROI."
+                ]
+            }
+        ];
+
+        // Referencias al DOM
+        const container = document.getElementById('cards-container');
+        const modal = document.getElementById('modal');
+        const modalContentWrapper = document.getElementById('modal-content-wrapper');
+        const closeButtons = document.querySelectorAll('.modal-close');
+
+        // Generar Tarjetas
+        subjects.forEach(sub => {
+            const card = document.createElement('div');
+            card.className = "bg-white rounded-xl shadow-sm border border-gray-100 p-6 hover:shadow-lg transition-shadow duration-300 flex flex-col h-full";
+            card.innerHTML = `
+                <div class="flex items-start justify-between mb-4">
+                    <div class="${sub.bg} ${sub.color} w-12 h-12 rounded-lg flex items-center justify-center text-2xl">
+                        <i class="${sub.icon}"></i>
+                    </div>
+                </div>
+                <h3 class="text-lg font-bold text-gray-900 mb-2 leading-tight">${sub.title}</h3>
+                <p class="text-gray-600 text-sm mb-6 flex-grow">${sub.short}</p>
+                <button 
+                    onclick="openModal(${sub.id})"
+                    class="w-full py-2.5 rounded-lg border border-indigo-600 text-indigo-600 font-semibold text-sm hover:bg-indigo-600 hover:text-white transition-colors duration-200">
+                    Ver Ficha Completa
+                </button>
+            `;
+            container.appendChild(card);
+        });
+
+        // Lógica del Modal
+        function openModal(id) {
+            const data = subjects.find(s => s.id === id);
+            if(!data) return;
+
+            // Rellenar datos
+            document.getElementById('modal-title').innerText = data.title;
+            document.getElementById('modal-desc').innerText = data.desc;
+            
+            // Generar lista de objetivos
+            const list = document.getElementById('modal-objectives');
+            list.innerHTML = '';
+            data.objectives.forEach(obj => {
+                const li = document.createElement('li');
+                li.className = "flex items-start text-sm text-gray-700";
+                li.innerHTML = `<i class="fa-solid fa-check text-indigo-500 mt-1 mr-3 flex-shrink-0"></i> <span>${obj}</span>`;
+                list.appendChild(li);
+            });
+
+            // Mostrar modal
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            document.body.classList.add('modal-active');
+            
+            // Animación de escala
+            setTimeout(() => {
+                modalContentWrapper.classList.remove('scale-95');
+                modalContentWrapper.classList.add('scale-100');
+            }, 10);
+        }
+
+        function closeModal() {
+            modalContentWrapper.classList.remove('scale-100');
+            modalContentWrapper.classList.add('scale-95');
+            
+            setTimeout(() => {
+                modal.classList.add('opacity-0', 'pointer-events-none');
+                document.body.classList.remove('modal-active');
+            }, 150);
+        }
+
+        // Event Listeners
+        closeButtons.forEach(btn => btn.addEventListener('click', closeModal));
+        
+        // Cerrar al hacer click fuera
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal || e.target.classList.contains('modal-overlay')) {
+                closeModal();
+            }
+        });
+
+        // Cerrar con ESC
+        document.onkeydown = function(evt) {
+            evt = evt || window.event;
+            if (evt.keyCode == 27) {
+                closeModal();
+            }
+        };
+    </script>
+</body>
+</html>
