@@ -8,9 +8,7 @@ Resumen interactivo de las asignaturas del **Master in Machine Learning & AI** d
 
 ## 🚀 Demo
 
-Visita la página desplegada: [Ver Demo](https://TU_USUARIO.github.io/NOMBRE_REPO/)
-
-> ⚠️ Reemplaza `TU_USUARIO` y `NOMBRE_REPO` con tus datos de GitHub después de crear el repositorio.
+Visita la página desplegada: [Ver Demo](https://lucferbux.github.io/guia-docente-master-ia-ml/)
 
 ## 📋 Descripción
 
@@ -32,8 +30,8 @@ Esta aplicación web presenta de forma visual e interactiva las asignaturas del 
 
 1. Clona el repositorio:
    ```bash
-   git clone https://github.com/TU_USUARIO/NOMBRE_REPO.git
-   cd NOMBRE_REPO
+   git clone https://github.com/lucferbux/guia-docente-master-ia-ml.git
+   cd guia-docente-master-ia-ml
    ```
 
 2. Abre `index.html` en tu navegador o usa un servidor local:
@@ -55,7 +53,7 @@ Este proyecto está configurado para desplegarse automáticamente con GitHub Pag
 2. Ve a **Settings** → **Pages**
 3. En **Source**, selecciona la rama `main` y la carpeta `/ (root)`
 4. Haz clic en **Save**
-5. Tu sitio estará disponible en `https://TU_USUARIO.github.io/NOMBRE_REPO/`
+5. Tu sitio estará disponible en `https://lucferbux.github.io/guia-docente-master-ia-ml/`
 
 ## 📁 Estructura del Proyecto
 
